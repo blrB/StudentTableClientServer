@@ -62,7 +62,7 @@ public class FileHandler {
             writer.writeEndDocument();
             writer.flush();
         } catch (Exception eSave) {
-            textArea.append("ERROR. File not find or not correct\n");
+            textArea.append("ERROR. File not save!\n");
         }
     }
 
@@ -106,7 +106,7 @@ public class FileHandler {
             }
             tableModel.setNumberExaminations(Integer.parseInt(numberExam));
         } catch (Exception e) {
-            textArea.append("ERROR. File not save!\n");;
+            textArea.append("ERROR. File not find or not correct\n");;
         }
     }
 

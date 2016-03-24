@@ -74,7 +74,7 @@ public class MainWindow {
         toolBar.addSeparator();
         label = new JLabel("Port: ");
         toolBar.add(label);
-        port = new JTextField("1234", 4);
+        port = new JTextField("5555", 4);
         port.setMaximumSize(new Dimension(50,20));
         toolBar.add(port);
         toolBar.addSeparator();
@@ -166,6 +166,7 @@ public class MainWindow {
             studentTableWithPaging.setClient(client);
             searchPanel.setClient(client);
         } else {
+            client.sendToServer(Constants.CLIENT_EXIT);
             connect = false;
             JOptionPane.showMessageDialog
                     (null, "Not correct host or port", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -231,7 +232,9 @@ public class MainWindow {
         final MainWindow mainWindow = new MainWindow();
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
-                mainWindow.getClient().sendToServer(Constants.CLIENT_EXIT);
+                if (mainWindow.getClient() != null) {
+                    mainWindow.getClient().sendToServer(Constants.CLIENT_EXIT);
+                }
             }
         }));
     }

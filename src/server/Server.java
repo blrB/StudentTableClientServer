@@ -1,5 +1,7 @@
 package server;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -9,7 +11,7 @@ import javax.swing.*;
 public class Server {
 
     private static final Logger log = Logger.getLogger(Server.class);
-    private static final int DEFAULT_PORT = 1234;
+    private static final int DEFAULT_PORT = 5555;
     private Socket socket;
     private JTextArea textArea;
 
@@ -20,8 +22,8 @@ public class Server {
         textArea = new JTextArea();
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
-        frame.add(scrollPane);
         frame.setVisible(true);
+        frame.add(scrollPane);
         runServer();
     }
 
@@ -29,6 +31,7 @@ public class Server {
         textArea.append("Run server\n");
         try {
             ServerSocket serverSocket = new ServerSocket(DEFAULT_PORT);
+            log.info("START SERVER");
             while (true){
                 socket = serverSocket.accept();
                 new ServerSession(serverSocket, socket, this);
@@ -43,7 +46,6 @@ public class Server {
     }
 
     public static void main(String[] args){
-        log.info("START SERVER");
         new Server();
     }
 
