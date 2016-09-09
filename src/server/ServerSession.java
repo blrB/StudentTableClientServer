@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by andrey on 21/03/16.
  */
-public class ServerSession {
+public class ServerSession  implements Runnable {
 
     private ServerSocket serverSocket;
     private Socket socket;
@@ -39,7 +39,7 @@ public class ServerSession {
             outputStream = new ObjectOutputStream(socket.getOutputStream());
             outputStream.flush();
             inputStream = new ObjectInputStream(socket.getInputStream());
-            runSession();
+            //runSession();
         } catch (Exception e) {
             jTextArea.append("ERROR.\n");
             e.printStackTrace();
@@ -230,5 +230,16 @@ public class ServerSession {
 
     public JTextArea getTextArea() {
         return jTextArea;
+    }
+
+    @Override
+    public void run() {
+        try {
+            runSession();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

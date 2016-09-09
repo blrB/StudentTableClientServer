@@ -5,12 +5,12 @@ import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import javax.swing.*;
 
 public class Server {
 
-    private static final Logger log = Logger.getLogger(Server.class);
+    //private static final Logger log = Logger.getLogger(Server.class);
     private static final int DEFAULT_PORT = 5555;
     private Socket socket;
     private JTextArea textArea;
@@ -31,10 +31,10 @@ public class Server {
         textArea.append("Run server\n");
         try {
             ServerSocket serverSocket = new ServerSocket(DEFAULT_PORT);
-            log.info("START SERVER");
+            //log.info("START SERVER");
             while (true){
                 socket = serverSocket.accept();
-                new ServerSession(serverSocket, socket, this);
+                new Thread(new ServerSession(serverSocket, socket, this)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
